@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alquileres de Canchas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Alquileres de Canchas</h1>
+    <h2>Listado de Alquileres</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Cancha</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Costo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alquiler in alquileres %}
+            <tr>
+                <td>{{ alquiler.id }}</td>
+                <td>{{ alquiler.cliente.nombre }}</td>
+                <td>{{ alquiler.cancha.nombre }}</td>
+                <td>{{ alquiler.fecha }}</td>
+                <td>{{ alquiler.hora }}</td>
+                <td>{{ alquiler.costo }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<h2>Reservas por mes</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Reservas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for month_num, month_name in [(1, "Enero"), (2, "Febrero"), (3, "Marzo"), (4, "Abril"), (5, "Mayo"), (6, "Junio"), (7, "Julio"), (8, "Agosto"), (9, "Septiembre"), (10, "Octubre"), (11, "Noviembre"), (12, "Diciembre")] %}
+            <tr>
+                <td>{{ month_name }}</td>
+                <td style="background-color: {{ 'green' if month_counts.get(month_num, 0) > 4 else 'red' }}">{{ month_counts.get(month_num, 0) }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('logout') }}" style="background-color: red; color: white; padding: 10px 20px; text-decoration: none; margin-top: 10px; display: inline-block;">Cerrar Sesión</a>
+
+</body>
+</html>
